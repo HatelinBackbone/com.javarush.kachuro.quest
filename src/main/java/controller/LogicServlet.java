@@ -14,6 +14,8 @@ import java.io.IOException;
 @WebServlet(name = "LogicServlet", value = "/quest")
 public class LogicServlet extends HttpServlet {
 
+    QuestService service;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/questPage.jsp").forward(req, resp);
@@ -23,7 +25,9 @@ public class LogicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-        QuestService service = (QuestService) getServletContext().getAttribute("questService");
+        if (service == null){
+            service = (QuestService) getServletContext().getAttribute("questService");
+        }
 
         String answerIdStr = req.getParameter("answerId");
         if (answerIdStr != null) {
@@ -35,7 +39,6 @@ public class LogicServlet extends HttpServlet {
                 if (nextQuestion != null) {
                     session.setAttribute("currentQuestion", nextQuestion);
                 } else {
-                    // Квест завершён, удаляем текущий вопрос
                     session.removeAttribute("currentQuestion");
                 }
             } catch (NumberFormatException e) {
@@ -46,5 +49,11 @@ public class LogicServlet extends HttpServlet {
         req.getRequestDispatcher("/questPage.jsp").forward(req, resp);
     }
 
+    public void process_doPost_forTest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
 
+    public void setQuestService_forTest(QuestService questService) {
+        this.service = questService;
+    }
 }
