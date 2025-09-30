@@ -25,7 +25,14 @@
 
 <div class="card mx-auto" style="max-width: 700px; background-color: rgba(176, 196, 222, 0.6)">
     <div class="card-body text-center">
-        <h3 class="card-title"><%= playerName != null ? playerName : "Игрок" %>,</h3>
+        <h3 class="card-title"><c:choose>
+            <c:when test="${not empty sessionScope.playerName}">
+                ${sessionScope.playerName},
+            </c:when>
+            <c:otherwise>
+                Игрок,
+            </c:otherwise>
+        </c:choose></h3>
 
         <%
             if (currentQuestion != null) {
