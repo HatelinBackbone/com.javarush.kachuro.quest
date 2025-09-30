@@ -7,9 +7,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class QuestionsFromConstants implements QuestionRepository{
+public class QuestionsFromConstants implements QuestionRepository {
 
-    private final Map<Integer,Question> questions_repository = new HashMap<>();
+    private final Map<Integer, Question> questions_repository = new HashMap<>();
 
     @Override
     public void save(Question question) {
@@ -24,11 +24,11 @@ public class QuestionsFromConstants implements QuestionRepository{
     @Override
     public Question findByAnswerId(int answerId) {
         for (Question q : questions_repository.values()) {
-                for (Answer a : q.getAnswers()) {
-                    if (a.getId() == answerId) {
-                        return findById(a.getNextQuestionId());
-                    }
+            for (Answer a : q.getAnswers()) {
+                if (a.getId() == answerId) {
+                    return findById(a.getNextQuestionId());
                 }
+            }
         }
         return null;
     }

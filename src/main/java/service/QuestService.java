@@ -53,15 +53,15 @@ public class QuestService {
         questRepository.save(quest);
     }
 
-    public Question getStartQuestion(){
+    public Question getStartQuestion() {
         return questionRepository.findById(1);
     }
 
-    public Question findNextQuestion(int answerId){
+    public Question findNextQuestion(int answerId) {
         return questionRepository.findByAnswerId(answerId);
     }
 
-    public Quest getQuestById(int id){
+    public Quest getQuestById(int id) {
         return questRepository.findById(id);
     }
 }
